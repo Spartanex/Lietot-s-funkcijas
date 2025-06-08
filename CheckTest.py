@@ -108,8 +108,16 @@ class QuizApp:
         else:
             self.display_question()
 
+    def show_result(self):
+        self.frame.destroy()
+        result_text = f"Pareizi atbildēts: {self.correct} no {len(questions)} jautājumiem."
+        result_label = tk.Label(self.root, text=result_text, font=("Arial", 14))
+        result_label.pack(pady=10)
 
-
+        if self.incorrect_questions:
+            tk.Label(self.root, text="Nepareizi atbildētie jautājumi:", font=("Arial", 12)).pack()
+            for q in self.incorrect_questions:
+                tk.Label(self.root, text="• " + q, wraplength=500, justify="left").pack(anchor="w")
 
 root = tk.Tk()
 app = QuizApp(root)
