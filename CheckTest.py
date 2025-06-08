@@ -55,3 +55,34 @@ questions = [
         "answers": [0, 1]
     }
 ]
+
+random.shuffle(questions)
+
+class QuizApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Python Skaitlisko Funkciju Tests")
+
+        self.q_index = 0
+        self.correct = 0
+        self.incorrect_questions = []
+
+        self.question_var = tk.StringVar()
+        self.options_vars = []
+
+        self.frame = tk.Frame(self.root, padx=20, pady=20)
+        self.frame.pack()
+
+        self.label = tk.Label(self.frame, textvariable=self.question_var, wraplength=400, justify="left")
+        self.label.pack(anchor="w")
+
+        for _ in range(4):
+            var = tk.IntVar()
+            cb = tk.Checkbutton(self.frame, variable=var)
+            cb.pack(anchor="w")
+            self.options_vars.append((var, cb))
+
+        self.next_btn = tk.Button(self.frame, text="Tālāk", command=self.next_question)
+        self.next_btn.pack(pady=10)
+
+        self.display_question()
