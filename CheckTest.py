@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import random
 
-# Jautājumu saraksts
+# Обновлённые вопросы
 questions = [
     {
         "question": "Kuri no šiem ir skaitliskie tipi Python valodā?",
@@ -86,3 +86,31 @@ class QuizApp:
         self.next_btn.pack(pady=10)
 
         self.display_question()
+
+    def display_question(self):
+        q = questions[self.q_index]
+        self.question_var.set(f"{self.q_index + 1}. {q['question']}")
+        for i, option in enumerate(q['options']):
+            self.options_vars[i][0].set(0)
+            self.options_vars[i][1].config(text=option)
+
+    def next_question(self):
+        selected = [i for i, (var, _) in enumerate(self.options_vars) if var.get()]
+        correct_answers = questions[self.q_index]["answers"]
+        if set(selected) == set(correct_answers):
+            self.correct += 1
+        else:
+            self.incorrect_questions.append(questions[self.q_index]["question"])
+
+        self.q_index += 1
+        if self.q_index >= len(questions):
+            self.show_result()
+        else:
+            self.display_question()
+
+
+
+
+root = tk.Tk()
+app = QuizApp(root)
+root.mainloop()
