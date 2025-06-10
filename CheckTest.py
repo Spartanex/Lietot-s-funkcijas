@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 import random
 
-# Обновлённые вопросы
 questions = [
     {
         "question": "Kuri no šiem ir skaitliskie tipi Python valodā?",
